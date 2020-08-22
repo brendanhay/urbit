@@ -1,13 +1,15 @@
+{ ... }@args:
+
 let
 
-  rev  = "61c3169a0e17d789c566d5b241bfe309ce4a6275";
-  hash = "0qbycg7wkb71v20rchlkafrjfpbk2fnlvvbh3ai9pyfisci5wxvq";
-  pkgs = builtins.fetchTarball {
-    name = "nixpkgs-2019-01-15";
-    url = "https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz";
-    sha256 = hash;
-  };
+  sources = import ./sources.nix;
 
-in
+  haskellNix = import sources.haskell-nix {};
 
-import pkgs {}
+  # By pinning to haskell.nix's own pins we should get a higher cache
+  # hit rate from `cachix use iohk`.
+  nixpkgsSrc = haskellNix.sources.nixpkgs-2003;
+  nixpkgsArgs = haskellNix.nixpkgsArgs // args;
+  nixpkgs = import haskellNix.sources.nixpkgs-2003 nixpkgsArgs;
+
+in nixpkgs 
