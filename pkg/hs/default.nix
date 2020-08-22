@@ -4,7 +4,8 @@ let
 
   project = pkgs.haskell-nix.stackProject {
     src = pkgs.haskell-nix.cleanSourceHaskell {
-      src = ./.;
+      name = "urbit-king";
+      src = ../../pkg/hs;
     };
 
     modules = [{ 
@@ -21,7 +22,6 @@ let
         "containers"
         "deepseq"
         "directory"
-        "exceptions"
         "filepath"
         "ghc"
         "ghc-boot"
@@ -50,6 +50,11 @@ let
         "unix"
         "xhtml"
       ];
+
+      # Disable the urbit-king test-suite for now - since it relies on pills/lfs.
+      packages = { 
+         urbit-king.doCheck = false;
+      };
     }];
   };
 
