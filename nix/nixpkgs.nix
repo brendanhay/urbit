@@ -1,8 +1,6 @@
-{ ... }@args:
+{ sources ? import ./sources.nix, ... }@args:
 
 let
-
-  sources = import ./sources.nix;
 
   haskellNix = import sources.haskell-nix {};
 
@@ -12,4 +10,4 @@ let
   nixpkgsArgs = haskellNix.nixpkgsArgs // args;
   nixpkgs = import haskellNix.sources.nixpkgs-2003 nixpkgsArgs;
 
-in nixpkgs 
+in nixpkgs // { inherit sources; }
