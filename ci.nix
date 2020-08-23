@@ -40,10 +40,13 @@ let
           # Apply the selector to the Haskell package set
           (type: selector: (selector type) projectPackages));
 
-  pkgs = import ./nix/nixpkgs.nix { };
-  musl = import ./nix/nixpkgs-musl.nix { };
+  native = import ./nix/nixpkgs.nix { };
+  musl64 = import ./nix/nixpkgs-musl.nix { };
 
+  release = import ./nix/release.nix { pkgs = native; };
+  
 in {
-  linux64 = import ./nix/release.nix { inherit pkgs; };
-  haskell = haskellPackages musl;
+  inherit (release) linux64 darwin;
+
+  haskell = haskellPackages musl64;
 }
