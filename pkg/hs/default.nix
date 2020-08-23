@@ -2,7 +2,7 @@
 
 let
 
-  optionalStaticFlags = 
+  staticFlagsIfMusl = 
     pkgs.stdenv.lib.optionals pkgs.stdenv.hostPlatform.isMusl ([
       "--disable-executable-dynamic"
       "--disable-shared"
@@ -10,7 +10,7 @@ let
       "--ghc-option=-optl=-static"
       "--ghc-option=-optl=-L${pkgs.gmp6.override { withStatic = true; }}/lib"
       "--ghc-option=-optl=-L${pkgs.zlib}/lib"
-    ];
+    ]);
   
   project = pkgs.haskell-nix.stackProject {
     src = pkgs.haskell-nix.cleanSourceHaskell {
@@ -67,7 +67,7 @@ let
         urbit-king.doCheck = false;
  
         urbit-king.components.exes.urbit-king.configureFlags =
-          optionalStaticFlags;
+          staticFlagsIfMusl;
       };
     }];
   };
