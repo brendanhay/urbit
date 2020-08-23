@@ -26,7 +26,8 @@ let
         pkgs.haskell-nix.haskellLib.collectComponents' type xs;
 
     in
-      # This computes the Haskell package set sliced by component type
+      # This computes the Haskell package set sliced by component type - these
+      # are then displayed as the haskell build attributes in hercules ci.
       pkgs.recurseIntoAttrs
         (dimension
           "Haskell component"
