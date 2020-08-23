@@ -2,6 +2,17 @@
 
 let
 
+  ifMusl = pkgs.stdenv.lib.optionals pkgs.stdenv.hostPlatform.isMusl;
+
+  staticFlags = libs: [
+      "--disable-executable-dynamic"
+      "--disable-shared"
+      "--ghc-option=-optl=-pthread"
+      "--ghc-option=-optl=-static"
+      "--ghc-option=-optl=-L${pkgs.gmp6.override { withStatic = true; }}/lib"
+      "--ghc-option=-optl=-L${pkgs.zlib}/lib"
+    ] ++ map (l: "--ghc-option=-optl=-L${l}/lib") libs;
+  
   project = pkgs.haskell-nix.stackProject {
     src = pkgs.haskell-nix.cleanSourceHaskell {
       name = "urbit-king";
@@ -51,9 +62,13 @@ let
         "xhtml"
       ];
 
-      # Disable the urbit-king test-suite for now - since it relies on pills/lfs.
       packages = { 
-         urbit-king.doCheck = false;
+        # Disable the urbit-king test-suite for now - since it relies
+        # relative paths to lfs pills.
+        urbit-king.doCheck = false;
+ 
+        urbit-king.components.exes.urbit-king.configureFlags =
+          ifMusl (staticFlags []);
       };
     }];
   };

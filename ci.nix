@@ -44,7 +44,6 @@ let
   musl = import ./nix/nixpkgs-musl.nix { };
 
 in {
-  haskell = haskellPackages pkgs;
-  haskellMusl = haskellPackages musl;
   linux64 = import ./nix/release.nix { inherit pkgs; };
+  haskell = haskellPackages musl;
 }
