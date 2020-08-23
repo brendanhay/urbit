@@ -1,11 +1,11 @@
-{ pkgs ? import ../../nix/nixpkgs.nix { } }:
+{ pkgs }:
 
 let
 
   project = pkgs.haskell-nix.stackProject {
     src = pkgs.haskell-nix.cleanSourceHaskell {
       name = "urbit-king";
-      src = ../../pkg/hs;
+      src = ./.;
     };
 
     modules = [{ 

@@ -1,8 +1,10 @@
+{ pkgs ? import ./nix/nixpkgs.nix { } }:
+
 let
 
-  pkgs = import ./nix/pkgs {};
-  deps = import ./nix/deps {};
+  self = import ./nix/pkgs { inherit pkgs; };
+  deps = import ./nix/deps { inherit pkgs; };
 
 in
 
-  deps // pkgs
+  deps // self
