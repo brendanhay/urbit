@@ -1,4 +1,4 @@
-{ pkgs ? import ../nixpkgs.nix }:
+{ pkgs }:
 
 rec {
   argon2       = import ./argon2       { inherit pkgs; };
