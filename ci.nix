@@ -46,5 +46,5 @@ let
 in {
   haskell = haskellPackages pkgs;
   haskellMusl = haskellPackages musl;
-  linux64 = import ./release.nix { inherit pkgs; };
+  linux64 = import ./nix/release.nix { inherit pkgs; };
 }
