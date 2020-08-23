@@ -40,12 +40,11 @@ let
           # Apply the selector to the Haskell package set
           (type: selector: (selector type) projectPackages));
 
-  urbitPackages = pkgs:
-    let default = (import ./default.nix { inherit pkgs; });
-        haskell = haskellPackages pkgs;
-    in default // haskell;
+  pkgs = import ./nix/nixpkgs.nix { };
+  musl = import ./nix/nixpkgs-musl.nix { };
 
-  pkgs = urbitPackages (import ./nix/nixpkgs.nix { });
-  musl = urbitPackages (import ./nix/nixpkgs-musl.nix { });
-
-in pkgs // { inherit musl; }
+in {
+  haskell = haskellPackages pkgs;
+  haskellMusl = haskellPackages musl;
+  linux64 = import ./release.nix { inherit pkgs; };
+}

@@ -1,6 +1,8 @@
+{ pkgs ? import ./nixpkgs.nix { } }:
+
 let
 
-  nixpkgs   = import ./nixpkgs.nix;
+  nixpkgs   = pkgs;
   nixcrpkgs = import ./nixcrpkgs.nix;
   crossdeps = import ./crossdeps.nix;
 
