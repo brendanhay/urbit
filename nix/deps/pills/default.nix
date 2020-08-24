@@ -9,6 +9,7 @@ pkgs.stdenvNoCC.mkDerivation {
   };
   preferLocalBuild = true;
   nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
+  unpackPhase = "true";
   installPhase = ''
     mkdir $out
 
