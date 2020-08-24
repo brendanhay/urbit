@@ -4,7 +4,10 @@ pkgs.stdenv.mkDerivation {
   name              = "ivory.h";
   src               = ivory;
   nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
-  unpackPhase = "git lfs install";
+  unpackPhase = ''
+     git lfs install --local
+     git lfs pull
+ '';
 
   installPhase = ''
 cat $src > u3_Ivory.pill
