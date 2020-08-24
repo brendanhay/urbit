@@ -2,8 +2,15 @@
 
 pkgs.stdenv.mkDerivation {
   name              = "ivory.h";
-  src               = ivory;
-  nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
+  src               = pkgs.lib.cleanSourceWith {
+    src = ../../..;
+    filter = path: type:
+      let baseName = baseNameOf (toString path);
+      in (baseName == ".git" || baseName == "bin");
+  }
+
+    nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
+
   unpackPhase = ''
      git lfs install --local
      git lfs pull
