@@ -43,7 +43,9 @@ let
           (type: selector: (selector type) projectPackages));
 
   native = import ./nix/nixpkgs.nix { };
-  musl64 = import ./nix/nixpkgs-musl.nix { };
+  musl64 = import ./nix/nixpkgs.nix {
+    crossSystem = native.lib.systems.examples.musl64;
+  };
 
 in import ./default.nix { pkgs = native; } // {
  native = haskellPackages native;
