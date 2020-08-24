@@ -9,17 +9,22 @@ pkgs.stdenvNoCC.mkDerivation {
   };
   preferLocalBuild = true;
   nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
-  unpackPhase = "true";
   installPhase = ''
-    cp -R --no-preserve=mode,ownership $src tmp
+    mkdir $out
 
-    pushd tmp >/dev/null
+    tmp=$out/tmp
+
+    cp -R --no-preserve=mode,ownership $src $tmp
+
+    pushd $tmp >/dev/null
 
     git lfs install --local --skip-smudge
     git lfs pull
 
     popd >/dev/null
 
-    mv tmp/bin $out
+    mv $tmp/bin/* $out/
+
+    rm -rf $tmp
   '';
 }
