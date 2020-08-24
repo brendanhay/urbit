@@ -7,9 +7,9 @@ pkgs.stdenv.mkDerivation {
     filter = path: type:
       let baseName = baseNameOf (toString path);
       in (baseName == ".git" || baseName == "bin");
-  }
+  };
 
-    nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
+  nativeBuildInputs = [ pkgs.xxd pkgs.git pkgs.git-lfs ];
 
   unpackPhase = ''
      git lfs install --local
