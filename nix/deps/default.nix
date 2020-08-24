@@ -9,6 +9,7 @@ rec {
   softfloat3   = import ./softfloat3   { inherit pkgs; };
   secp256k1    = import ./secp256k1    { inherit pkgs; };
   h2o          = import ./h2o          { inherit pkgs uv; };
-  ivory-header = import ./ivory-header { inherit pkgs; };
+  pills        = import ./pills        { inherit pkgs; };
+  ivory-header = import ./ivory-header { inherit pkgs pills; };
   ca-header    = import ./ca-header    { inherit pkgs; };
 }

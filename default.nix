@@ -5,6 +5,4 @@ let
   self = import ./nix/pkgs { inherit pkgs; };
   deps = import ./nix/deps { inherit pkgs; };
 
-in
-
-  deps // self
+in deps // self

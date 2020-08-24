@@ -1,7 +1,6 @@
 let
 
   pkgs = import ./nixpkgs.nix;
-  tlon = import ./pkgs { inherit pkgs; };
   deps = import ./deps { inherit pkgs; };
 
   tools =
