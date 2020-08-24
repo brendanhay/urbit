@@ -9,12 +9,13 @@ in
 
 pkgs.stdenv.mkDerivation rec {
   name         = "herb";
+  src          = ./.;
   buildInputs  = [ pyenv ];
   unpackPhase  = "true";
   installPhase = ''
     mkdir -p $out/bin
 
-    cp ${./herb} $out/bin/herb.py
+    cp $src/herb $out/bin/herb.py
 
     cat > $out/bin/herb <<EOF
     #!/usr/bin/env bash
