@@ -13,12 +13,13 @@ let
   haskellPackages = pkgs:
     let
 
+      # These functions pull out from the Haskell package set either all the
+      # components of a particular type, or all the checks.
+
       projectPackages =
         pkgs.haskell-nix.haskellLib.selectProjectPackages 
           (import ./pkg/hs { inherit pkgs; });
 
-      # These functions pull out from the Haskell package set either all the
-      # components of a particular type, or all the checks.
       collectChecks = _: xs:
         pkgs.recurseIntoAttrs (builtins.mapAttrs (_: x: x.checks) xs);
 
@@ -44,10 +45,7 @@ let
   native = import ./nix/nixpkgs.nix { };
   musl64 = import ./nix/nixpkgs-musl.nix { };
 
-  release = import ./nix/release.nix { pkgs = native; };
-  
 in {
-  inherit (release) linux64 darwin;
-
-  haskell = haskellPackages musl64;
+ haskellNative = haskellPackages native;
+ haskellMusl64 = haskellPackages musl64;
 }
