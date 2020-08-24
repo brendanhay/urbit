@@ -45,7 +45,7 @@ let
   native = import ./nix/nixpkgs.nix { };
   musl64 = import ./nix/nixpkgs-musl.nix { };
 
-in {
- haskellNative = haskellPackages native;
- haskellMusl64 = haskellPackages musl64;
+in import ./default.nix { pkgs = native; } // {
+ native = haskellPackages native;
+ musl64 = haskellPackages musl64;
 }
