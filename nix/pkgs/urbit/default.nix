@@ -38,8 +38,9 @@ let
       bash ./configure
     '';
 
+    # Brendan: Wat? Why is -j8 hardcoded? Causes problems on CI agents.
     installPhase = ''
-      make all -j8
+      make all -j8 
       make test
 
       mkdir -p $out/bin
