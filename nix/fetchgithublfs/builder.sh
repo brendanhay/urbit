@@ -68,8 +68,9 @@ header "get pointer metadata from $url"
 
 href=$("${curl[@]}" -H "$headers" -d "$body" "$url" | jq -r '.objects[0].actions.download.href')
 
-header "get pointer contents from $href"
+header "get file contents from remote"
 
-"${curl[@]}" --output "$out" "$href"
+# Pozor: the $href contains credential and signature information.
+"${curl[@]}" -s --output "$out" "$href"
 
 stopNest
