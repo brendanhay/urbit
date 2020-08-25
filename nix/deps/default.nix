@@ -1,4 +1,4 @@
-{ pkgs, ivory }:
+{ pkgs }:
 
 rec {
   argon2       = import ./argon2       { inherit pkgs; };
@@ -10,6 +10,6 @@ rec {
   secp256k1    = import ./secp256k1    { inherit pkgs; };
   h2o          = import ./h2o          { inherit pkgs uv; };
   pills        = import ./pills        { inherit pkgs; };
-  ivory-header = import ./ivory-header { inherit pkgs ivory; };
+  ivory-header = import ./ivory-header { inherit pkgs; inherit (pills) ivory; };
   ca-header    = import ./ca-header    { inherit pkgs; };
 }
